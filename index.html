@@ -340,6 +340,12 @@ dialog.wl-modal::backdrop{background:rgba(10,38,34,.6);backdrop-filter:blur(3px)
 .mobile-menu.open{display:grid}
 .mobile-menu a{padding:12px 0;font-weight:600;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--line)}
 </style>
+<!-- Reddit Pixel -->
+<script>
+!function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);
+rdt('init','p2_15zyvk4az7g6u');
+rdt('track','PageVisit');
+</script>
 </head>
 <body>
 
@@ -410,7 +416,7 @@ dialog.wl-modal::backdrop{background:rgba(10,38,34,.6);backdrop-filter:blur(3px)
     <div class="quote" id="quote">
       <form id="qform" novalidate>
         <h2>What would you pay?</h2>
-        <p class="sub">Three questions. No phone call, no credit check.</p>
+        <p class="sub">A few quick questions. No phone call, no credit check.</p>
         <label class="field"><span>ZIP code</span><input id="zip" inputmode="numeric" maxlength="5" placeholder="e.g. 33130" autocomplete="postal-code"></label>
         <div class="field"><span>Who's covered?</span>
           <div class="seg">
@@ -427,6 +433,7 @@ dialog.wl-modal::backdrop{background:rgba(10,38,34,.6);backdrop-filter:blur(3px)
             <button type="button" data-k="none" aria-pressed="false">Just being careful</button>
           </div>
         </div>
+        <label class="field"><span>Email</span><input id="qemail" type="email" placeholder="you@email.com" autocomplete="email"></label>
         <button class="btn btn-primary" type="submit">See my price <span class="arrow">→</span></button>
         <p class="fine">Planned pricing, shown as an estimate. CounselPlus isn't available to buy yet, and final prices may change by state.</p>
       </form>
@@ -446,7 +453,7 @@ dialog.wl-modal::backdrop{background:rgba(10,38,34,.6);backdrop-filter:blur(3px)
           <button class="btn btn-primary" type="submit">Join the waitlist <span class="arrow">→</span></button>
           <div class="wl-msg" aria-live="polite"></div>
         </form>
-        <div class="wl-done"><b>You're on the list.</b>We'll email you when CounselPlus launches in your state.</div>
+        <div class="wl-done"><b>You're on the list.</b>We'll let you know when CounselPlus launches.</div>
         <button class="back" id="rback">← Change my answers</button>
       </div>
     </div>
@@ -755,7 +762,7 @@ dialog.wl-modal::backdrop{background:rgba(10,38,34,.6);backdrop-filter:blur(3px)
       <p style="color:var(--muted);margin-top:16px;font-size:18px">Can't find it? Ask our assistant above.</p>
     </div>
     <div class="rv">
-      <details open><summary>When can I sign up?</summary><p>We're not open yet. Join the waitlist and we'll email you as soon as CounselPlus is available in your state. It's free and there's no card needed.</p></details>
+      <details open><summary>When can I sign up?</summary><p>We're not open yet. Join the waitlist and we'll let you know when CounselPlus launches. It's free and there's no card needed.</p></details>
       <details><summary>Is this actually insurance, or a discount club?</summary><p>It's insurance. When a covered matter goes to court, we pay the legal bills up to your plan's limit. Many "legal plans" only give you a discount on hourly rates. Ours pays.</p></details>
       <details><summary>Who are the lawyers?</summary><p>Licensed attorneys at our independent panel law firm. They review and sign anything that counts as legal advice, and they represent you if your case goes to court. Our AI drafts documents to save time; it never gives you legal advice on its own.</p></details>
       <details><summary>Can I sign up when I already have a problem?</summary><p>Yes, for advice: you can ask questions and get letters drafted from day one. Court coverage has a 90-day waiting period and doesn't apply to disputes that started before you joined. It's like any insurance: get it before you need it.</p></details>
@@ -788,14 +795,14 @@ dialog.wl-modal::backdrop{background:rgba(10,38,34,.6);backdrop-filter:blur(3px)
     <button class="x" type="button" aria-label="Close" id="wlclose">×</button>
     <div class="soon" style="background:var(--cream);color:var(--tomato);border-color:var(--cream-2)"><i style="background:var(--tomato)"></i>Launching soon</div>
     <h2 id="wltitle">Join the waitlist</h2>
-    <p class="sub">We'll email you the day CounselPlus opens in your state. Free, no card needed.</p>
+    <p class="sub">We'll let you know when CounselPlus launches. Free, no card needed.</p>
     <span class="pill" id="wlpill" hidden></span>
     <form class="wl" data-source="modal" novalidate>
       <input type="email" name="email" placeholder="you@email.com" autocomplete="email" aria-label="Email address">
       <button class="btn btn-primary" type="submit">Join the waitlist <span class="arrow">→</span></button>
       <div class="wl-msg" aria-live="polite"></div>
     </form>
-    <div class="wl-done"><b>You're on the list.</b>We'll email you when CounselPlus launches in your state.</div>
+    <div class="wl-done"><b>You're on the list.</b>We'll let you know when CounselPlus launches.</div>
   </div>
 </dialog>
 
@@ -848,6 +855,11 @@ const notes={
 };
 document.getElementById('qform').addEventListener('submit',e=>{e.preventDefault();
   if(!/^\d{5}$/.test(zip.value)){zip.style.borderColor='var(--tomato)';zip.focus();return}
+  const qe=document.getElementById('qemail');
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(qe.value.trim())){qe.style.borderColor='var(--tomato)';qe.focus();return}
+  qe.style.borderColor='';
+  document.querySelector('form.wl[data-source=quote] input').value=qe.value.trim();
+  document.querySelectorAll('form.wl input[name=email]').forEach(i=>{if(!i.value)i.value=qe.value.trim()});
   const fam=document.querySelector('input[name=who]:checked').value==='fam';
   document.getElementById('rprice').innerHTML=(fam?'$59':'$39')+'<small>/month</small>';
   document.getElementById('rwho').textContent=fam?'for your whole household':'for one person';
@@ -913,6 +925,7 @@ async function joinWL(form){
   try{
     const r=await fetch(SB_URL+'/rest/v1/counselplus_waitlist',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify(row)});
     if(r.ok||r.status===409){form.classList.add('sent');
+      if(r.ok&&window.rdt)rdt('track','SignUp',{conversionId:(crypto.randomUUID?crypto.randomUUID():String(Date.now()))});
       if(window.fbq)fbq('track','Lead');if(window.gtag)gtag('event','generate_lead');if(window.ttq)ttq.track('SubmitForm');}
     else throw new Error(r.status)
   }catch(e){msg.textContent='Something went wrong. Please try again.';}
