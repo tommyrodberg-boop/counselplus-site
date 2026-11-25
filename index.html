@@ -42,9 +42,6 @@ p{margin:0}
 .underline-hand{position:relative;white-space:nowrap}
 .underline-hand svg{position:absolute;left:-2%;bottom:-.22em;width:104%;height:.4em}
 
-/* promo */
-.promo{background:var(--pad);color:var(--ink);font-size:14px;font-weight:600;text-align:center;padding:9px 16px}
-.promo a{font-weight:800}
 
 /* nav */
 header.nav{position:sticky;top:0;z-index:50;background:rgba(251,247,240,.94);backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid transparent;transition:border-color .2s}
@@ -317,6 +314,28 @@ footer a:hover{color:#fff}
   .foot-grid{grid-template-columns:1fr}
   .quote{padding:22px 18px}
 }
+/* waitlist */
+.soon{display:inline-flex;align-items:center;gap:8px;background:rgba(255,226,122,.14);color:var(--pad);border:1px solid rgba(255,226,122,.35);border-radius:999px;padding:6px 12px;font-weight:700;font-size:13px;margin-bottom:14px}
+.soon i{width:8px;height:8px;border-radius:50%;background:var(--pad);display:inline-block;animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{50%{opacity:.35}}
+.wl{display:grid;gap:10px;margin-top:18px}
+.wl input{width:100%;font:500 16px var(--sans);padding:15px 14px;border-radius:12px;border:1.5px solid var(--line);background:#fff;color:var(--text);outline:none}
+.wl input:focus{border-color:var(--ink-3);box-shadow:0 0 0 4px rgba(36,92,82,.14)}
+.wl input.bad{border-color:var(--tomato)}
+.wl .btn{width:100%;justify-content:center}
+.wl .btn[disabled]{opacity:.6;cursor:wait}
+.wl-msg{font-size:14px;color:var(--tomato);min-height:0}
+.wl-done{display:none;background:var(--sage);border-radius:14px;padding:16px 18px;margin-top:18px;color:var(--ink);font-size:15.5px}
+.wl-done b{display:block;font-family:var(--serif);font-size:22px;margin-bottom:4px}
+.wl.sent{display:none}
+.wl.sent+.wl-done{display:block}
+dialog.wl-modal{border:0;padding:0;border-radius:22px;max-width:440px;width:calc(100% - 32px);background:var(--paper);color:var(--text);box-shadow:0 40px 80px -20px rgba(0,0,0,.5)}
+dialog.wl-modal::backdrop{background:rgba(10,38,34,.6);backdrop-filter:blur(3px)}
+.wl-modal .in{padding:30px 28px 26px;position:relative}
+.wl-modal h2{font-size:30px;color:var(--ink)}
+.wl-modal .sub{color:var(--muted);font-size:15.5px;margin-top:8px}
+.wl-modal .pill{display:inline-block;background:var(--cream);color:var(--ink);font-weight:700;font-size:13px;padding:6px 12px;border-radius:999px;margin-top:14px}
+.wl-modal .x{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;border:0;background:var(--cream);cursor:pointer;font-size:20px;line-height:1;color:var(--ink)}
 .mobile-menu{display:none;background:var(--paper);border-bottom:1px solid var(--line);padding:8px 24px 20px}
 .mobile-menu.open{display:grid}
 .mobile-menu a{padding:12px 0;font-weight:600;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--line)}
@@ -346,7 +365,6 @@ footer a:hover{color:#fff}
   </defs>
 </svg>
 
-<div class="promo">Now covering Florida &amp; Texas · <a href="#">Hablamos español →</a></div>
 
 <header class="nav" id="nav">
   <div class="wrap nav-in">
@@ -359,16 +377,14 @@ footer a:hover{color:#fff}
       <a href="#plans">For business</a>
     </nav>
     <div class="nav-right">
-      <a href="#" class="lang">ES</a>
-      <a href="#" class="signin">Sign in</a>
-      <a href="#quote" class="btn btn-primary">Check my price</a>
+      <a href="#quote" class="btn btn-primary">Join the waitlist</a>
       <button class="burger" aria-label="Open menu" aria-expanded="false" id="burger">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0F3530" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
     </div>
   </div>
   <div class="mobile-menu" id="mmenu">
-    <a href="#problems">What's covered</a><a href="#how">How it works</a><a href="#plans">Plans &amp; pricing</a><a href="#ask">Ask a question</a><a href="#">Sign in</a>
+    <a href="#problems">What's covered</a><a href="#how">How it works</a><a href="#plans">Plans &amp; pricing</a><a href="#ask">Ask a question</a>
   </div>
 </header>
 
@@ -377,6 +393,7 @@ footer a:hover{color:#fff}
   <svg class="hero-deco" viewBox="0 0 40 40" aria-hidden="true" style="color:#fff"><use href="#temple"/></svg>
   <div class="wrap hero-in">
     <div>
+      <div class="soon"><i></i>Launching soon · Join the waitlist</div>
       <div class="eyebrow">Legal insurance, finally for regular people</div>
       <h1>A lawyer on call.<br>And when it goes to court, <em>we pay the bill.</em></h1>
       <p class="lede">One monthly plan for advice, documents and real legal coverage. Up to $50,000 per matter, even if the fight is with your boss.</p>
@@ -386,7 +403,7 @@ footer a:hover{color:#fff}
         <li><svg style="color:var(--pad)"><use href="#check"/></svg>Legal bills paid up to $10k, $25k or $50k per case</li>
       </ul>
       <div class="hero-foot">
-        <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Cancel anytime</span>
+        <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Free to join · No card needed</span>
       </div>
     </div>
 
@@ -411,7 +428,7 @@ footer a:hover{color:#fff}
           </div>
         </div>
         <button class="btn btn-primary" type="submit">See my price <span class="arrow">→</span></button>
-        <p class="fine">Estimates only. Final price depends on your state. Litigation coverage starts after a 90-day waiting period; advice starts day one.</p>
+        <p class="fine">Planned pricing, shown as an estimate. CounselPlus isn't available to buy yet, and final prices may change by state.</p>
       </form>
 
       <div class="result" aria-live="polite">
@@ -424,7 +441,12 @@ footer a:hover{color:#fff}
           <li><svg style="color:#1D6B43"><use href="#check"/></svg>Will, power of attorney and healthcare directive</li>
         </ul>
         <div class="matchnote" id="rnote" hidden></div>
-        <a href="#plans" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:16px">Start my plan <span class="arrow">→</span></a>
+        <form class="wl" data-source="quote" novalidate>
+          <input type="email" name="email" placeholder="you@email.com" autocomplete="email" aria-label="Email address">
+          <button class="btn btn-primary" type="submit">Join the waitlist <span class="arrow">→</span></button>
+          <div class="wl-msg" aria-live="polite"></div>
+        </form>
+        <div class="wl-done"><b>You're on the list.</b>We'll email you when CounselPlus launches in your state.</div>
         <button class="back" id="rback">← Change my answers</button>
       </div>
     </div>
@@ -592,7 +614,7 @@ footer a:hover{color:#fff}
           <li class="no"><svg><use href="#dash"/></svg>Employment disputes: advice only</li>
           <li class="no"><svg><use href="#dash"/></svg>No civil defense or IRS audits</li>
         </ul>
-        <a href="#quote" class="btn btn-ghost">Choose Essentials</a>
+        <button type="button" class="btn btn-ghost" data-wl="essentials">Join the waitlist</button>
       </div>
 
       <div class="plan feat rv">
@@ -609,7 +631,7 @@ footer a:hover{color:#fff}
           <li><svg style="color:var(--pad)"><use href="#check"/></svg>Civil defense, contracts, IRS audits</li>
           <li><svg style="color:var(--pad)"><use href="#check"/></svg>Will, POA and healthcare directive</li>
         </ul>
-        <a href="#quote" class="btn btn-primary">Choose Core <span class="arrow">→</span></a>
+        <button type="button" class="btn btn-primary" data-wl="core">Join the waitlist <span class="arrow">→</span></button>
       </div>
 
       <div class="plan rv">
@@ -624,18 +646,18 @@ footer a:hover{color:#fff}
           <li><svg style="color:#1D6B43"><use href="#check"/></svg>Living trust included</li>
           <li><svg style="color:#1D6B43"><use href="#check"/></svg>No deductible</li>
         </ul>
-        <a href="#quote" class="btn btn-ghost">Choose Premier</a>
+        <button type="button" class="btn btn-ghost" data-wl="premier">Join the waitlist</button>
       </div>
     </div>
 
-    <p class="plans-note rv">90-day wait on court coverage. $250 deductible per matter on Essentials and Core. <a href="#faq">See the fine print →</a></p>
+    <p class="plans-note rv">Planned pricing. Not available to buy yet. 90-day wait on court coverage. $250 deductible per matter on Essentials and Core. <a href="#faq">See the fine print →</a></p>
 
     <div class="biz rv">
       <div>
         <h3>Run a small business?</h3>
         <p>Contracts, collections and vendor disputes, from $99/month on top of your personal plan.</p>
       </div>
-      <a href="#" class="btn btn-ghost">See business add-ons</a>
+      <button type="button" class="btn btn-ghost" data-wl="" data-src="business">Join the waitlist</button>
     </div>
   </div>
 </section>
@@ -669,7 +691,7 @@ footer a:hover{color:#fff}
       <table>
         <thead><tr><th></th><th>Hiring a lawyer by the hour</th><th>Workplace legal plan</th><th>Online legal docs</th><th class="us">CounselPlus</th></tr></thead>
         <tbody>
-          <tr><td>How you get it</td><td>Find one, pay a retainer</td><td>Only if your employer offers it</td><td>Buy online</td><td class="us">Buy it yourself, in 3 minutes</td></tr>
+          <tr><td>How you get it</td><td>Find one, pay a retainer</td><td>Only if your employer offers it</td><td>Buy online</td><td class="us">Sign up yourself, no employer needed</td></tr>
           <tr><td>If you end up in court</td><td>You pay every hour</td><td>Network lawyer, limits vary</td><td><span class="ico-n">✕</span> Not insurance</td><td class="us"><span class="ico-y">✓</span> Paid up to your limit</td></tr>
           <tr><td>Disputes with your employer</td><td>You pay</td><td><span class="ico-n">✕</span> Excluded</td><td><span class="ico-n">✕</span></td><td class="us"><span class="ico-y">✓</span> Covered</td></tr>
           <tr><td>Answers at 11pm on a Sunday</td><td><span class="ico-n">✕</span></td><td><span class="ico-n">✕</span></td><td>Templates only</td><td class="us"><span class="ico-y">✓</span> AI assistant, 24/7</td></tr>
@@ -733,7 +755,8 @@ footer a:hover{color:#fff}
       <p style="color:var(--muted);margin-top:16px;font-size:18px">Can't find it? Ask our assistant above.</p>
     </div>
     <div class="rv">
-      <details open><summary>Is this actually insurance, or a discount club?</summary><p>It's insurance. When a covered matter goes to court, we pay the legal bills up to your plan's limit. Many "legal plans" only give you a discount on hourly rates. Ours pays.</p></details>
+      <details open><summary>When can I sign up?</summary><p>We're not open yet. Join the waitlist and we'll email you as soon as CounselPlus is available in your state. It's free and there's no card needed.</p></details>
+      <details><summary>Is this actually insurance, or a discount club?</summary><p>It's insurance. When a covered matter goes to court, we pay the legal bills up to your plan's limit. Many "legal plans" only give you a discount on hourly rates. Ours pays.</p></details>
       <details><summary>Who are the lawyers?</summary><p>Licensed attorneys at our independent panel law firm. They review and sign anything that counts as legal advice, and they represent you if your case goes to court. Our AI drafts documents to save time; it never gives you legal advice on its own.</p></details>
       <details><summary>Can I sign up when I already have a problem?</summary><p>Yes, for advice: you can ask questions and get letters drafted from day one. Court coverage has a 90-day waiting period and doesn't apply to disputes that started before you joined. It's like any insurance: get it before you need it.</p></details>
       <details><summary>What isn't covered?</summary><p>Criminal matters beyond traffic, divorce and custody litigation, business disputes on a personal plan, and anything that started before your coverage. Every plan still gets attorney advice on these, so you're never left guessing.</p></details>
@@ -750,15 +773,31 @@ footer a:hover{color:#fff}
       <svg viewBox="0 0 40 40" aria-hidden="true" style="position:absolute;right:-40px;top:-30px;width:300px;color:#fff;opacity:.05"><use href="#temple"/></svg>
       <div>
         <h2>Get it before the letter shows up.</h2>
-        <p>Plans from $19 a month. Advice starts the day you join.</p>
+        <p>Plans from $19 a month. Join the waitlist and we'll tell you the day we launch.</p>
       </div>
       <div class="cta">
-        <a href="#quote" class="btn btn-primary">Check my price <span class="arrow">→</span></a>
-        <small>About 3 minutes · Cancel anytime</small>
+        <button type="button" class="btn btn-primary" data-wl="" data-src="final">Join the waitlist <span class="arrow">→</span></button>
+        <small>Free · No card needed</small>
       </div>
     </div>
   </div>
 </section>
+
+<dialog class="wl-modal" id="wlmodal" aria-labelledby="wltitle">
+  <div class="in">
+    <button class="x" type="button" aria-label="Close" id="wlclose">×</button>
+    <div class="soon" style="background:var(--cream);color:var(--tomato);border-color:var(--cream-2)"><i style="background:var(--tomato)"></i>Launching soon</div>
+    <h2 id="wltitle">Join the waitlist</h2>
+    <p class="sub">We'll email you the day CounselPlus opens in your state. Free, no card needed.</p>
+    <span class="pill" id="wlpill" hidden></span>
+    <form class="wl" data-source="modal" novalidate>
+      <input type="email" name="email" placeholder="you@email.com" autocomplete="email" aria-label="Email address">
+      <button class="btn btn-primary" type="submit">Join the waitlist <span class="arrow">→</span></button>
+      <div class="wl-msg" aria-live="polite"></div>
+    </form>
+    <div class="wl-done"><b>You're on the list.</b>We'll email you when CounselPlus launches in your state.</div>
+  </div>
+</dialog>
 
 <footer>
   <div class="wrap">
@@ -770,9 +809,10 @@ footer a:hover{color:#fff}
       <div><h5>Coverage</h5><ul><li><a href="#">Landlord &amp; tenant</a></li><li><a href="#">Employment</a></li><li><a href="#">Debt defense</a></li><li><a href="#">Wills &amp; estates</a></li></ul></div>
       <div><h5>Plans</h5><ul><li><a href="#plans">Essentials</a></li><li><a href="#plans">Core</a></li><li><a href="#plans">Premier</a></li><li><a href="#">Small business</a></li></ul></div>
       <div><h5>Company</h5><ul><li><a href="#">About</a></li><li><a href="#">For partners</a></li><li><a href="#">Careers</a></li><li><a href="#">Press</a></li></ul></div>
-      <div><h5>Help</h5><ul><li><a href="#">Sign in</a></li><li><a href="#">File a claim</a></li><li><a href="#faq">FAQ</a></li><li><a href="#">Español</a></li></ul></div>
+      <div><h5>Help</h5><ul><li><a href="#quote">Join the waitlist</a></li><li><a href="#faq">FAQ</a></li><li><a href="#">Español</a></li></ul></div>
     </div>
     <div class="legal">
+      <p>CounselPlus is not yet available. Prices and coverage shown are planned and may change. Joining the waitlist does not purchase insurance or create an attorney-client relationship.</p>
       <p>CounselPlus is a managing general agent. Insurance policies are subject to the terms, conditions, limits and exclusions of the policy. Coverage is not available in all states. CounselPlus is not a law firm and does not provide legal advice; legal advice is provided by independent licensed attorneys at our panel firm. AI-generated drafts are reviewed by an attorney before being relied upon as legal advice.</p>
       <p>Hourly rate figure: Clio Legal Trends (2025–26). German market figures: GDV. © 2026 CounselPlus, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Licenses</a></p>
     </div>
@@ -841,10 +881,43 @@ const answers=[
 ];
 function ask(q){const r=document.getElementById('reply'),t=document.getElementById('replytext');
   const hit=answers.find(a=>a[0].test(q));
-  t.textContent=hit?hit[1]:"Good question. The short answer depends on your state and the details. Create a free account and I'll walk through it with you, and flag it for an attorney if it needs one.";
+  t.textContent=hit?hit[1]:"Good question. The short answer depends on your state and the details. Join the waitlist and we'll let you know as soon as you can ask our attorneys directly.";
   r.classList.remove('show');void r.offsetWidth;r.classList.add('show')}
 document.getElementById('askform').addEventListener('submit',e=>{e.preventDefault();const q=document.getElementById('askq');ask(q.value||q.placeholder)});
 document.querySelectorAll('#sugs button').forEach(b=>b.onclick=()=>{document.getElementById('askq').value=b.textContent;ask(b.textContent)});
+
+// ---- waitlist -> Supabase
+const SB_URL="https://lxtutssdhetlryjksngb.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx4dHV0c3NkaGV0bHJ5amtzbmdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM0Njk4NjQsImV4cCI6MjA2OTA0NTg2NH0.xK5SAuK-6UN_sjS-ChDTC4hqCGPQ9Tn5J3C2zeUsAjI";
+const qp=new URLSearchParams(location.search),utm={};
+['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(k=>{let v=qp.get(k);try{if(v)sessionStorage.setItem(k,v);else v=sessionStorage.getItem(k)}catch(e){}if(v)utm[k]=v.slice(0,200)});
+const ctx={plan:null,source:null};
+const modal=document.getElementById('wlmodal'),pill=document.getElementById('wlpill');
+const planNames={essentials:'Essentials',core:'Core',premier:'Premier'};
+function openWL(plan,src){ctx.plan=plan||null;ctx.source=src||(plan?'plan_'+plan:'cta');
+  pill.hidden=!plan;if(plan)pill.textContent='Interested in: '+planNames[plan];
+  modal.showModal();setTimeout(()=>modal.querySelector('input').focus(),50)}
+document.querySelectorAll('[data-wl]').forEach(b=>b.addEventListener('click',()=>openWL(b.dataset.wl,b.dataset.src)));
+document.getElementById('wlclose').onclick=()=>modal.close();
+modal.addEventListener('click',e=>{if(e.target===modal)modal.close()});
+async function joinWL(form){
+  const inp=form.querySelector('input'),btn=form.querySelector('button'),msg=form.querySelector('.wl-msg');
+  const email=inp.value.trim().toLowerCase();
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){inp.classList.add('bad');msg.textContent='Enter a valid email.';inp.focus();return}
+  inp.classList.remove('bad');msg.textContent='';btn.disabled=true;
+  const fromQuote=form.dataset.source==='quote';
+  const who=document.querySelector('input[name=who]:checked').value;
+  const issues=[...chips.querySelectorAll('[aria-pressed=true]')].map(b=>b.dataset.k);
+  const row={email,source:fromQuote?'quote':ctx.source,plan:fromQuote?'core':ctx.plan,
+    coverage:fromQuote?who:null,zip:fromQuote&&/^\d{5}$/.test(zip.value)?zip.value:null,
+    issues:fromQuote&&issues.length?issues:null,referrer:(document.referrer||'').slice(0,500)||null,...utm};
+  try{
+    const r=await fetch(SB_URL+'/rest/v1/counselplus_waitlist',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify(row)});
+    if(r.ok||r.status===409){form.classList.add('sent');
+      if(window.fbq)fbq('track','Lead');if(window.gtag)gtag('event','generate_lead');if(window.ttq)ttq.track('SubmitForm');}
+    else throw new Error(r.status)
+  }catch(e){msg.textContent='Something went wrong. Please try again.';}
+  btn.disabled=false}
+document.querySelectorAll('form.wl').forEach(f=>f.addEventListener('submit',e=>{e.preventDefault();joinWL(f)}));
 </script>
 </body>
 </html>
